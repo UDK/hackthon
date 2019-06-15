@@ -26,17 +26,13 @@ namespace hackathon.Controllers
             var userInfo = databaseUri.UserInfo.Split(':');
             var conn = new NpgsqlConnection(databaseUrl);
             conn.Open();
-            using (var cmd = new NpgsqlCommand())
-            {
-                cmd.Connection = conn;
-                cmd.CommandText = "SELECT * FROM patient";
-                var dr = cmd.ExecuteReader();
-                dr.Read();
-                result.id = (uint)dr[0];
-                result.name = (string)dr[1];
-                result.surname = (string)dr[0];
-            }
-            return Json(userInfo);
+            NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
+            var dr = command.ExecuteReader();
+            dr.Read();
+            result.id = (uint)dr[0];
+            result.name = (string)dr[1];
+            result.surname = (string)dr[0];
+            return Json(result);
         }
 
         public IActionResult Privacy()
