@@ -25,9 +25,10 @@ namespace hackathon.Controllers
             var databaseUri = new Uri(databaseUrl);
             var userInfo = databaseUri.UserInfo.Split(':');
             var conn = new NpgsqlConnection(databaseUrl);
-            conn.Open();
             try
             {
+                conn.Open();
+            
                 NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
