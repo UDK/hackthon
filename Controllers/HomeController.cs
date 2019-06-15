@@ -22,11 +22,10 @@ namespace hackathon.Controllers
         {
             Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var conn = new NpgsqlConnection(databaseUrl);
             try
             {
+                var conn = new NpgsqlConnection(databaseUrl);
                 conn.Open();
-            
                 NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
