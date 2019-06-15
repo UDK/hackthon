@@ -40,7 +40,7 @@ namespace hackathon.Controllers
                 NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
-                result.id = (uint)dr[0];
+                result.id = (int)dr[0];
                 result.name = (string)dr[1];
                 result.surname = (string)dr[0];
                 return Json(result);
