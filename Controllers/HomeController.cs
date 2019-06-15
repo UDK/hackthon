@@ -18,7 +18,7 @@ namespace hackathon.Controllers
         }
        
         [HttpGet]
-        public IActionResult Contact(string id)
+        public JsonResult Contact(string id)
         {
             Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
@@ -26,13 +26,20 @@ namespace hackathon.Controllers
             var userInfo = databaseUri.UserInfo.Split(':');
             var conn = new NpgsqlConnection(databaseUrl);
             conn.Open();
-            NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
-            var dr = command.ExecuteReader();
-            dr.Read();
-            result.id = (uint)dr[0];
-            result.name = (string)dr[1];
-            result.surname = (string)dr[0];
-            return Json(result);
+            try
+            {
+                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
+                var dr = command.ExecuteReader();
+                dr.Read();
+                result.id = (uint)dr[0];
+                result.name = (string)dr[1];
+                result.surname = (string)dr[0];
+                return Json(result);
+            }
+            catch(InvalidCastException e)
+            {
+                return e.ToString();
+            }
         }
 
         public IActionResult Privacy()
