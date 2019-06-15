@@ -42,7 +42,7 @@ namespace hackathon.Controllers
                 dr.Read();
                 result.id = (int)dr[0];
                 result.name = (string)dr[1];
-                result.surname = (string)dr[0];
+                result.surname = (string)dr[2];
                 return Json(result);
             }
             catch (Exception e)
