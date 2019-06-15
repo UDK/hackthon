@@ -44,7 +44,7 @@ namespace hackathon.Controllers
                 result.name = (string)dr[1];
                 result.surname = (string)dr[0];
             }
-            return Json(result);
+            return Json(1);
         }
 
         public IActionResult Privacy()
