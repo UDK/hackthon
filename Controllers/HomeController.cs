@@ -20,7 +20,7 @@ namespace hackathon.Controllers
         [HttpGet]
         public JsonResult Contact(string id)
         {
-            return Interface("qq", Convert.ToInt32(id), "ww");
+            return Interface("sickness", Convert.ToInt32(id), "patient");
         }
 
         public IActionResult Privacy()
@@ -45,13 +45,15 @@ namespace hackathon.Controllers
             try
             {
                 var conn = new NpgsqlConnection(builder.ToString());
-                conn.Open();
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
+                conn.Open(); 
+                //sql запрос нормально бы оформить
+                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM "+table+ " join "+table_compare+" on patient.id = sickness.idPatient where patient.id="+id, conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
                 result.id = (int)dr[0];
                 result.name = (string)dr[1];
                 result.surname = (string)dr[2];
+                conn.Close();
                 return Json(result);
             }
             catch (Exception e)
