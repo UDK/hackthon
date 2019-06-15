@@ -57,7 +57,7 @@ namespace hackathon.Controllers
                 result.text = (string)dr[4];
                 result.comment = (string)dr[5];
                 conn.Close();
-                return Json(dr);
+                return Json(result);
             }
             catch (Exception e)
             {
