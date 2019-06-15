@@ -22,8 +22,6 @@ namespace hackathon.Controllers
         {
             Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var databaseUri = new Uri(databaseUrl);
-            var userInfo = databaseUri.UserInfo.Split(':');
             var conn = new NpgsqlConnection(databaseUrl);
             try
             {
