@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using 
 using hackathon.Models;
 
 namespace hackathon.Controllers
@@ -25,13 +24,13 @@ namespace hackathon.Controllers
             var userInfo = databaseUri.UserInfo.Split(':');
             var builder = new NpgsqlConnectionStringBuilder
             {
-                Host = databaseUri.Host,
-                Port = databaseUri.Port,
-                Username = userInfo[0],
-                Password = userInfo[1],
-                Database = databaseUri.LocalPath.TrimStart('/')
+                host = databaseUri.Host,
+                port = databaseUri.Port,
+                username = userInfo[0],
+                password = userInfo[1],
+                database = databaseUri.LocalPath.TrimStart('/')
             };
-            return Json(sicknens);
+            return Json(builder);
         }
 
         public IActionResult Privacy()
