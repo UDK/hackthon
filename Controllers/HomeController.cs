@@ -20,6 +20,16 @@ namespace hackathon.Controllers
         [HttpGet]
         public JsonResult Contact(string id)
         {
+            var qq = Interface("asd",1,"asdas");
+            return qq;
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        private JsonResult Interface(string table,int id,string table_compare)
+        {
             Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             var databaseUri = new Uri(databaseUrl);
@@ -35,9 +45,14 @@ namespace hackathon.Controllers
             };
             try
             {
+                string joinSQL;
+                //if(table_compare == ""|| table_compare == null)
+                //{
+                //    joinSQL = " JOIN "+table_compare+" on "+ table_compare+'.'++id +" = "+table+;
+                //}
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open();
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM sickness join patient on patient.id = sickness.idPatient");
                 var dr = command.ExecuteReader();
                 dr.Read();
                 result.id = (int)dr[0];
@@ -49,11 +64,6 @@ namespace hackathon.Controllers
             {
                 return Json(e);
             }
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
     }
 }
