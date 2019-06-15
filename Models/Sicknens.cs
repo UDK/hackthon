@@ -8,7 +8,10 @@ namespace hackathon.Models
     public class Sicknens
     {
         public int id { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
+        public int idPre { get; set; }
+        public int idPat { get; set; }
+        public int idDoc { get; set; }
+        public string text { get; set; }
+        public string comment { get; set; }
     }
 }
