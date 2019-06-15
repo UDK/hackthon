@@ -36,9 +36,9 @@ namespace hackathon.Controllers
                 result.surname = (string)dr[0];
                 return Json(result);
             }
-            catch(InvalidCastException e)
+            catch(Exception e)
             {
-                return e.ToString();
+                return Json(e);
             }
         }
 
