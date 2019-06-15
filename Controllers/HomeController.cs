@@ -20,35 +20,7 @@ namespace hackathon.Controllers
         [HttpGet]
         public JsonResult Contact(string id)
         {
-            Sicknens result = new Sicknens();
-            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var databaseUri = new Uri(databaseUrl);
-            var userInfo = databaseUri.UserInfo.Split(':');
-
-            var builder = new NpgsqlConnectionStringBuilder
-            {
-                Host = databaseUri.Host,
-                Port = databaseUri.Port,
-                Username = userInfo[0],
-                Password = userInfo[1],
-                Database = databaseUri.LocalPath.TrimStart('/')
-            };
-            try
-            {
-                var conn = new NpgsqlConnection(builder.ToString());
-                conn.Open();
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
-                var dr = command.ExecuteReader();
-                dr.Read();
-                result.id = (int)dr[0];
-                result.name = (string)dr[1];
-                result.surname = (string)dr[2];
-                return Json(result);
-            }
-            catch (Exception e)
-            {
-                return Json(e);
-            }
+            return Interface("qq", Convert.ToInt32(id), "ww");
         }
 
         public IActionResult Privacy()
@@ -72,14 +44,9 @@ namespace hackathon.Controllers
             };
             try
             {
-                string joinSQL;
-                //if(table_compare == ""|| table_compare == null)
-                //{
-                //    joinSQL = " JOIN "+table_compare+" on "+ table_compare+'.'++id +" = "+table+;
-                //}
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open();
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM "+table+" JOIN "+table_compare+" on ", conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
                 result.id = (int)dr[0];
