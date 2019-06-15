@@ -52,7 +52,7 @@ namespace hackathon.Controllers
                 //}
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open();
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM sickness join patient on patient.id = sickness.idPatient");
+                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM sickness join patient on patient.id = sickness.idPatient where patient.id=2;");
                 var dr = command.ExecuteReader();
                 dr.Read();
                 result.id = (int)dr[0];
