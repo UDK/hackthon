@@ -33,23 +33,22 @@ namespace hackathon.Controllers
                 Password = userInfo[1],
                 Database = databaseUri.LocalPath.TrimStart('/')
             };
-            //try
-            //{
-            //    var conn = new NpgsqlConnection(databaseUrl);
-            //    conn.Open();
-            //    NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
-            //    var dr = command.ExecuteReader();
-            //    dr.Read();
-            //    result.id = (uint)dr[0];
-            //    result.name = (string)dr[1];
-            //    result.surname = (string)dr[0];
-            //    return Json(result);
-            //}
-            //catch(Exception e)
-            //{
-            //    return Json(e);
-            //}
-            return Json(builder);
+            try
+            {
+                var conn = new NpgsqlConnection(builder.ToString());
+                conn.Open();
+                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM patient", conn);
+                var dr = command.ExecuteReader();
+                dr.Read();
+                result.id = (uint)dr[0];
+                result.name = (string)dr[1];
+                result.surname = (string)dr[0];
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                return Json(e);
+            }
         }
 
         public IActionResult Privacy()
