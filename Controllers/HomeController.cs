@@ -22,6 +22,17 @@ namespace hackathon.Controllers
         {
             Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var databaseUri = new Uri(databaseUrl);
+            var userInfo = databaseUri.UserInfo.Split(':');
+
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = databaseUri.Host,
+                Port = databaseUri.Port,
+                Username = userInfo[0],
+                Password = userInfo[1],
+                Database = databaseUri.LocalPath.TrimStart('/')
+            };
             //try
             //{
             //    var conn = new NpgsqlConnection(databaseUrl);
@@ -38,7 +49,7 @@ namespace hackathon.Controllers
             //{
             //    return Json(e);
             //}
-            return Json(databaseUrl);
+            return Json(builder);
         }
 
         public IActionResult Privacy()
