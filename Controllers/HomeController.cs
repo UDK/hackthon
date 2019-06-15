@@ -24,15 +24,15 @@ namespace hackathon.Controllers
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             var databaseUri = new Uri(databaseUrl);
             var userInfo = databaseUri.UserInfo.Split(':');
-            //var builder = new NpgsqlConnectionStringBuilder
-            //{
-            //    Host = databaseUri.Host,
-            //    Port = databaseUri.Port,
-            //    Username = userInfo[0],
-            //    Password = userInfo[1],
-            //    Database = databaseUri.LocalPath.TrimStart('/')
-            //};
-            //var conn = new NpgsqlConnection(databaseUrl);
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = databaseUri.Host,
+                Port = databaseUri.Port,
+                Username = userInfo[0],
+                Password = userInfo[1],
+                Database = databaseUri.LocalPath.TrimStart('/')
+            };
+            var conn = new NpgsqlConnection(databaseUrl);
             //conn.Open();
             //using (var cmd = new NpgsqlCommand())
             //{
@@ -44,7 +44,7 @@ namespace hackathon.Controllers
             //    result.name = (string)dr[1];
             //    result.surname = (string)dr[0];
             //}
-            return Json(databaseUrl);
+            return Json(userInfo);
         }
 
         public IActionResult Privacy()
