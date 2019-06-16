@@ -16,7 +16,7 @@ namespace hackathon.Controllers
         [HttpGet]
         public JsonResult Contact(string id)
         {
-            return Interface("sickness", Convert.ToInt32(id), "patient");
+            return Interface("sickness", Convert.ToInt32(id), "prescripion");
         }
         
         private JsonResult Interface(string table,int id,string table_compare)
