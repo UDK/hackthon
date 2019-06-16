@@ -24,6 +24,10 @@ namespace hackathon.Controllers
             {
                 return Interface("sickness", Convert.ToInt32(id), "prescripion","idmediacament");
             }
+            else if (table == "drug")
+            {
+                return Interface("prescripion", Convert.ToInt32(id), "medicament", "medicament.id");
+            }
             else
             {
                 return null;
@@ -50,7 +54,7 @@ namespace hackathon.Controllers
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open(); 
                 //sql запрос нормально бы оформить
-                NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM "+table+ " join "+table_compare+" on "+table_compare+".id = sickness.id"+ FirstUpper(table_compare)+ " where "+table_compare+".id="+id, conn);
+                NpgsqlCommand command = new NpgsqlCommand("SELECT "+select+" FROM "+table+ " join "+table_compare+" on "+table_compare+".id = sickness.id"+ FirstUpper(table_compare)+ " where "+table_compare+".id="+id, conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
                 for(int i=0;i<dr.VisibleFieldCount;i++)
