@@ -14,12 +14,23 @@ namespace hackathon.Controllers
     {
 
         [HttpGet]
-        public JsonResult Contact(string id)
+        public JsonResult Contact(string id,string table)
         {
-            return Interface("sickness", Convert.ToInt32(id), "prescripion");
+            if (table == "pat")
+            {
+                return Interface("sickness", Convert.ToInt32(id), "patient");
+            }
+            else if (table == "pre")
+            {
+                return Interface("sickness", Convert.ToInt32(id), "prescripion","idmediacament");
+            }
+            else
+            {
+                return null;
+            }
         }
         
-        private JsonResult Interface(string table,int id,string table_compare)
+        private JsonResult Interface(string table,int id,string table_compare,string select="*")
         {
             Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
