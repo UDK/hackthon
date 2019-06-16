@@ -44,7 +44,7 @@ namespace hackathon.Controllers
                 dr.Read();
                 for(int i=0;i<dr.VisibleFieldCount;i++)
                 {
-                    mass.Add(i.ToString(),dr[i].ToString());
+                    mass.Add(dr.GetName(i),dr[i].ToString());
                 }
                 //result.id = (int)dr[0];
                 //result.idPre= (int)dr[1];
