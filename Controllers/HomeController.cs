@@ -42,9 +42,9 @@ namespace hackathon.Controllers
                 NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM "+table+ " join "+table_compare+" on patient.id = sickness.idPatient where patient.id="+id, conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
-                for(int i=0;i<dr.FieldCount;i++)
+                for(int i=0;i<dr.VisibleFieldCount;i++)
                 {
-                    mass.Add(dr.GetName(2),dr[i].ToString());
+                    mass.Add(dr.GetName(2).ToString(),dr[i].ToString());
                 }
                 //result.id = (int)dr[0];
                 //result.idPre= (int)dr[1];
