@@ -42,7 +42,7 @@ namespace hackathon.Controllers
                 NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM "+table+ " join "+table_compare+" on patient.id = sickness.idPatient where patient.id="+id, conn);
                 var dr = command.ExecuteReader();
                 dr.Read();
-                for(int i=0;i<dr.VisibleFieldCount;i++)
+                for(int i=0;i<2;i++)
                 {
                     mass.Add("sad","asd");
                 }
@@ -53,7 +53,7 @@ namespace hackathon.Controllers
                 //result.text = (string)dr[4];
                 //result.comment = (string)dr[5];
                 conn.Close();
-                return Json(result);
+                return Json(mass);
             }
             catch (Exception e)
             {
