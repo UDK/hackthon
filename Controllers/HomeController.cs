@@ -40,19 +40,12 @@ namespace hackathon.Controllers
                 conn.Open(); 
                 //sql запрос нормально бы оформить
                 NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM "+table+ " join "+table_compare+" on "+table_compare+".id = sickness.id"+ FirstUpper(table_compare)+ " where "+table_compare+".id="+id, conn);
-                return Json(command);
                 var dr = command.ExecuteReader();
                 dr.Read();
                 for(int i=0;i<dr.VisibleFieldCount;i++)
                 {
                     mass.Add(i.ToString(),dr[i].ToString());
                 }
-                //result.id = (int)dr[0];
-                //result.idPre= (int)dr[1];
-                //result.idPat = (int)dr[2];
-                //result.idDoc = (int)dr[3];
-                //result.text = (string)dr[4];
-                //result.comment = (string)dr[5];
                 conn.Close();
                 return Json(mass);
             }
