@@ -28,6 +28,10 @@ namespace hackathon.Controllers
             {
                 return Interface("prescripion", Convert.ToInt32(id), "medicament", "medicament.id");
             }
+            else if (table =="doctor")
+            {
+                return Interface("sickness", Convert.ToInt32(id), "doctor", "doctor.name, doctor.surname, doctor.post");
+            }
             else
             {
                 return null;
@@ -55,7 +59,7 @@ namespace hackathon.Controllers
                 conn.Open(); 
                 //sql запрос нормально бы оформить
                 NpgsqlCommand command = new NpgsqlCommand("SELECT "+select+" FROM "+table+ " join "+table_compare+" on "+table_compare+".id = "+table+".id"+ FirstUpper(table_compare)+ " where "+table_compare+".id="+id, conn);
-                //return Json(command);
+                return Json(command);
                 var dr = command.ExecuteReader();
                 dr.Read();
                 for(int i=0;i<dr.VisibleFieldCount;i++)
