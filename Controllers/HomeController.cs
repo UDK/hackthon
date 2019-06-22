@@ -37,7 +37,9 @@ namespace hackathon.Controllers
                 return null;
             }
         }
-        
+        [HttpPost]
+        public JsonResult Write
+
         private JsonResult Interface(string table,int id,string table_compare,string select="*")
         {
             Sicknens result = new Sicknens();
@@ -78,5 +80,6 @@ namespace hackathon.Controllers
         {
             return str[0].ToString().ToUpper() + str.Substring(1); 
         }
+        
     }
 }
