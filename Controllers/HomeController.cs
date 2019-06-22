@@ -38,7 +38,10 @@ namespace hackathon.Controllers
             }
         }
         [HttpPost]
-        public JsonResult Write
+        public JsonResult Write(string table)
+        {
+            return Json(table);
+        }
 
         private JsonResult Interface(string table,int id,string table_compare,string select="*")
         {
