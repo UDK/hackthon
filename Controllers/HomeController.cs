@@ -64,10 +64,10 @@ namespace hackathon.Controllers
                     value.Add(drug.img.ToString() +",'"+ drug.name.ToString()+ "'," + drug.substances.ToString() + ',' + drug.price.ToString()+ ',' + drug.doza.ToString() + ",'" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "'::timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "'::timestamp," + drug.warning.ToString() + ",'" + drug.conditions.ToString() + "'," + drug.id.ToString()+','+polic);
                 }
                 var conn = new NpgsqlConnection(builder.ToString());
-                conn.Open();
+                //conn.Open();
                 //sql запрос нормально бы оформить
                 NpgsqlCommand commands = new NpgsqlCommand("INSERT into prescripion(comment,polic,title) values('" + data.comment+"',"+data.polic + ",'" + data.title + "')",conn);
-                return Json(commands);
+                //return Json(commands);
                 commands.ExecuteNonQuery();
                 foreach (var val in value)
                 {
