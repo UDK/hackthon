@@ -73,7 +73,7 @@ namespace hackathon.Controllers
                 {
                     NpgsqlCommand command = new NpgsqlCommand("INSERT into medicament(img,name,substances,price,doza,period_start,period_end,warning,conditions,id,idpolic) values(" + val + ')',conn);
                     command.ExecuteNonQueryAsync();
-                    return Json(command);
+                    //return Json(command);
                 }
                 conn.Close();
                 return Json(true);
