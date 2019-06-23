@@ -38,11 +38,45 @@ namespace hackathon.Controllers
             }
         }
         [HttpPost]
-        public JsonResult Write(string table)
+        public JsonResult Write([FromBody]Sicknens data)
         {
-            return Json(table);
+            return Json(WriteInsert(data));
         }
-
+        private JsonResult WriteInsert(Sicknens data)
+        {
+            Sicknens result = new Sicknens();
+            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var databaseUri = new Uri(databaseUrl);
+            var userInfo = databaseUri.UserInfo.Split(':');
+            Dictionary<string, string> mass = new Dictionary<string, string>();
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = databaseUri.Host,
+                Port = databaseUri.Port,
+                Username = userInfo[0],
+                Password = userInfo[1],
+                Database = databaseUri.LocalPath.TrimStart('/')
+            };
+            try
+            {
+                List<string> value = new List<string>();
+                foreach(Drug drug in data.drugs)
+                {
+                    value.Add(drug.img.ToString() +','+ drug.name+ ',' + drug.substances+ ',' + drug.price.ToString()+ ',' + drug.doza+ ',' + drug.periodBeginY+'-' + drug.periodBeginM + '-' + drug.periodBeginD + ','+drug.periodEndY+'-' + drug.periodEndM + '-' + drug.periodEndD + ','+drug.warning+ ',' + drug.conditions+',' + drug.id.ToString());
+                }
+                var conn = new NpgsqlConnection(builder.ToString());
+                conn.Open();
+                //sql запрос нормально бы оформить
+                NpgsqlCommand command = new NpgsqlCommand("INSERT into medicament(img,name,substances,price,doza,period_start,period_end,warning,conditions,id) values("+ value[0] + ')');
+                return Json(command);
+                command.ExecuteNonQuery();
+                return Json(true);
+            }
+            catch (Exception e)
+            {
+                return Json(e);
+            }
+        }
         private JsonResult Interface(string table,int id,string table_compare,string select="*")
         {
             Sicknens result = new Sicknens();
