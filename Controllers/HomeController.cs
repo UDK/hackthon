@@ -77,6 +77,7 @@ namespace hackathon.Controllers
                 //    command.ExecuteNonQuery();
                 //    //return Json(command);
                 //}
+                conn.Close();
                 return Json(true);
             }
             catch (Exception e)
