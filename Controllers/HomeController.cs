@@ -44,11 +44,9 @@ namespace hackathon.Controllers
         }
         private JsonResult WriteInsert(Recipe data)
         {
-            Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             var databaseUri = new Uri(databaseUrl);
             var userInfo = databaseUri.UserInfo.Split(':');
-            Dictionary<string, string> mass = new Dictionary<string, string>();
             var builder = new NpgsqlConnectionStringBuilder
             {
                 Host = databaseUri.Host,
@@ -68,7 +66,7 @@ namespace hackathon.Controllers
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open();
                 //sql запрос нормально бы оформить
-                NpgsqlCommand commands = new NpgsqlCommand("INSERT into prescripion(comment,polic,title) values('" + data.comment+"',"+data.polic + ",'" + data.title + "')");
+                NpgsqlCommand commands = new NpgsqlCommand("INSERT into prescripion(comment,polic,title) values('" + data.comment+"',"+data.polic + ",'" + data.title + "')",conn);
                 //return Json(commands);
                 commands.ExecuteNonQuery();
                 //foreach (var val in value)
