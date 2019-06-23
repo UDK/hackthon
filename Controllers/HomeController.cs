@@ -61,7 +61,7 @@ namespace hackathon.Controllers
                 string polic = data.polic.ToString();
                 foreach (Drug drug in data.drugs)
                 {
-                    value.Add(drug.img.ToString() +",'"+ drug.name.ToString()+ "'," + drug.substances.ToString() + ',' + drug.price.ToString()+ ",'" + drug.doza + "','" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "'::timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "'::timestamp," + drug.warning.ToString() + ",'" + drug.conditions.ToString() + "'," + drug.id.ToString()+','+polic);
+                    value.Add(drug.img.ToString() +",'"+ drug.name.ToString()+ "','" + drug.substances + "'," + drug.price.ToString()+ ",'" + drug.doza + "','" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "'::timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "'::timestamp," + drug.warning.ToString() + ",'" + drug.conditions.ToString() + "'," + drug.id.ToString()+','+polic);
                 }
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open();
