@@ -10,5 +10,6 @@ namespace hackathon.Models
         public Int64 polic { get; set; }
         public string title { get; set; }
         public string comment { get; set; }
+        public List<Drug> drugs { get; set; }
     }
 }

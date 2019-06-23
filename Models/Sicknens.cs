@@ -13,6 +13,5 @@ namespace hackathon.Models
         public int idDoc { get; set; }
         public string text { get; set; }
         public string comment { get; set; }
-        public List<Drug> drugs { get; set; }
     }
 }

@@ -38,11 +38,11 @@ namespace hackathon.Controllers
             }
         }
         [HttpPost]
-        public JsonResult Write([FromBody]Sicknens data)
+        public JsonResult Write([FromBody]Recipe data)
         {
             return Json(WriteInsert(data));
         }
-        private JsonResult WriteInsert(Sicknens data)
+        private JsonResult WriteInsert(Recipe data)
         {
             Sicknens result = new Sicknens();
             var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
@@ -60,14 +60,15 @@ namespace hackathon.Controllers
             try
             {
                 List<string> value = new List<string>();
+                string polic = data.polic.ToString();
                 foreach (Drug drug in data.drugs)
                 {
-                    value.Add(drug.img.ToString() +','+ drug.name.ToString()+ ',' + drug.substances.ToString() + ',' + drug.price.ToString()+ ',' + drug.doza.ToString() + ",'" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "'::timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "'::timestamp," + drug.warning.ToString() + ',' + drug.conditions.ToString() + ',' + drug.id.ToString());
+                    value.Add(drug.img.ToString() +','+ drug.name.ToString()+ ',' + drug.substances.ToString() + ',' + drug.price.ToString()+ ',' + drug.doza.ToString() + ",'" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "'::timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "'::timestamp," + drug.warning.ToString() + ',' + drug.conditions.ToString() + ',' + drug.id.ToString()+','+polic);
                 }
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open();
                 //sql запрос нормально бы оформить
-                NpgsqlCommand command = new NpgsqlCommand("INSERT into medicament(img,name,substances,price,doza,period_start,period_end,warning,conditions,id) values("+ value[0] + ')');
+                NpgsqlCommand command = new NpgsqlCommand("INSERT into medicament(img,name,substances,price,doza,period_start,period_end,warning,conditions,id,idpolic) values("+ value[0] + ')');
                 return Json(command);
                 command.ExecuteNonQuery();
                 return Json(true);
