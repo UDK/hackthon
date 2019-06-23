@@ -68,9 +68,15 @@ namespace hackathon.Controllers
                 //var conn = new NpgsqlConnection(builder.ToString());
                 //conn.Open();
                 //sql запрос нормально бы оформить
-                NpgsqlCommand command = new NpgsqlCommand("INSERT into medicament(img,name,substances,price,doza,period_start,period_end,warning,conditions,id,idpolic) values("+ value[0] + ')');
-                return Json(command);
-                command.ExecuteNonQuery();
+                NpgsqlCommand commands = new NpgsqlCommand("INSERT into prescripion(comment,polis,title) values(" + data.comment+','+data.polic + ',' + data.title + ')');
+                return Json(commands);
+                commands.ExecuteNonQuery();
+                foreach (var val in value)
+                {
+                    NpgsqlCommand command = new NpgsqlCommand("INSERT into medicament(img,name,substances,price,doza,period_start,period_end,warning,conditions,id,idpolic) values(" + val + ')');
+                    command.ExecuteNonQuery();
+                    //return Json(command);
+                }
                 return Json(true);
             }
             catch (Exception e)
