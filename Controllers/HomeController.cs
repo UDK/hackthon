@@ -44,29 +44,29 @@ namespace hackathon.Controllers
         }
         private JsonResult WriteInsert(Recipe data)
         {
-            Sicknens result = new Sicknens();
-            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var databaseUri = new Uri(databaseUrl);
-            var userInfo = databaseUri.UserInfo.Split(':');
-            Dictionary<string, string> mass = new Dictionary<string, string>();
-            var builder = new NpgsqlConnectionStringBuilder
-            {
-                Host = databaseUri.Host,
-                Port = databaseUri.Port,
-                Username = userInfo[0],
-                Password = userInfo[1],
-                Database = databaseUri.LocalPath.TrimStart('/')
-            };
+            //Sicknens result = new Sicknens();
+            //var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            //var databaseUri = new Uri(databaseUrl);
+            //var userInfo = databaseUri.UserInfo.Split(':');
+            //Dictionary<string, string> mass = new Dictionary<string, string>();
+            //var builder = new NpgsqlConnectionStringBuilder
+            //{
+            //    Host = databaseUri.Host,
+            //    Port = databaseUri.Port,
+            //    Username = userInfo[0],
+            //    Password = userInfo[1],
+            //    Database = databaseUri.LocalPath.TrimStart('/')
+            //};
             try
             {
                 List<string> value = new List<string>();
                 string polic = data.polic.ToString();
                 foreach (Drug drug in data.drugs)
                 {
-                    value.Add(drug.img.ToString() +','+ drug.name.ToString()+ ',' + drug.substances.ToString() + ',' + drug.price.ToString()+ ',' + drug.doza.ToString() + ",'" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "'::timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "'::timestamp," + drug.warning.ToString() + ',' + drug.conditions.ToString() + ',' + drug.id.ToString()+','+polic);
+                    value.Add(drug.img.ToString() +",'"+ drug.name.ToString()+ "'," + drug.substances.ToString() + ',' + drug.price.ToString()+ ',' + drug.doza.ToString() + ",'" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "'::timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "'::timestamp," + drug.warning.ToString() + ",'" + drug.conditions.ToString() + "'," + drug.id.ToString()+','+polic);
                 }
-                var conn = new NpgsqlConnection(builder.ToString());
-                conn.Open();
+                //var conn = new NpgsqlConnection(builder.ToString());
+                //conn.Open();
                 //sql запрос нормально бы оформить
                 NpgsqlCommand command = new NpgsqlCommand("INSERT into medicament(img,name,substances,price,doza,period_start,period_end,warning,conditions,id,idpolic) values("+ value[0] + ')');
                 return Json(command);
