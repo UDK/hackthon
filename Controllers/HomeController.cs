@@ -60,9 +60,9 @@ namespace hackathon.Controllers
             try
             {
                 List<string> value = new List<string>();
-                foreach(Drug drug in data.drugs)
+                foreach (Drug drug in data.drugs)
                 {
-                    value.Add(drug.img.ToString() +','+ drug.name.ToString()+ ',' + drug.substances.ToString() + ',' + drug.price.ToString()+ ',' + drug.doza.ToString() + ',' + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + ','+drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + ','+drug.warning.ToString() + ',' + drug.conditions.ToString() + ',' + drug.id.ToString());
+                    value.Add(drug.img.ToString() +','+ drug.name.ToString()+ ',' + drug.substances.ToString() + ',' + drug.price.ToString()+ ',' + drug.doza.ToString() + ",'" + drug.periodBeginY.ToString() + '-' + drug.periodBeginM.ToString() + '-' + drug.periodBeginD.ToString() + "':timestamp,'" + drug.periodEndY.ToString() + '-' + drug.periodEndM.ToString() + '-' + drug.periodEndD.ToString() + "':timestamp," + drug.warning.ToString() + ',' + drug.conditions.ToString() + ',' + drug.id.ToString());
                 }
                 var conn = new NpgsqlConnection(builder.ToString());
                 conn.Open();
