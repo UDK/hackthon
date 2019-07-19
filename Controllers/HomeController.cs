@@ -40,6 +40,7 @@ namespace hackathon.Controllers
         [HttpPost]
         public JsonResult Write([FromBody]Recipe data)
         {
+
             return Json(WriteInsert(data));
         }
         private JsonResult WriteInsert(Recipe data)
